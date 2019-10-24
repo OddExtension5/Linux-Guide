@@ -10,6 +10,12 @@
   
   Bash excels at 'gluing' other commands together
   
+### History Of Shells
+   
+   <img src="https://raw.githubusercontent.com/ianmiell/introduction-to-bash/master/slides/images/shell_history.png"
+     alt="History Of Shells"
+     style="float: left; margin-right: 30px;" />
+  
 ### What are the different shells?
    
    1. **The Bourne Shell (sh)**
