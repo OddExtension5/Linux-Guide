@@ -81,3 +81,10 @@
    |    The Korn Shell (ksh)	           |     /bin/ksh	                |        $	                       |      #                     |
    |    The GNU Bourne-Again Shell (Bash)|     /bin/bash	              |        bash-x.xx$	               |     bash-x.xx#             |
    --------------------------------------------------------------------------------------------------------------------------------------
+
+
+### Bash Startup
+
+  <img src="https://raw.githubusercontent.com/ianmiell/introduction-to-bash/master/slides/images/bash_startup.png"
+     alt="History Of Shells"
+     style="float: left; margin-right: 30px;" />
