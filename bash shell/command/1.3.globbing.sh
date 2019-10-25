@@ -40,31 +40,46 @@
 #  |           BACKUP.[0-9][0-9][0-9]      |  Any file beginning with BACKUP, followed by exactly three numerals.           |
 #  |---------------------------------------|--------------------------------------------------------------------------------|
 
+# REDIRECTION
+#  I/O redirection allows us to redefine where standard output goes.
+#  To redirect standard output(stdout) to another file instead of the screen, 
+#  we use the > redirection operator followed by the name of the file.
+
+# We could tell the shell to send the output of the ls command to the file ls-output.txt instead of the screen
+ls -l /usr/bin > ls-output.txt
 
 
-mkdir itb_globe
-cd itb_globe
-touch file1 file2 file3
-ls *
-echo *
-echo ls *
-echo ls '*'
-echo '$HOME'
-echo "$HOME"
+# grep -- Print Lines Matching a Pattern
+# grep is a powerful program used to find text patterns within files, like this:
+#                       grep pattern [file....]
+# when grep encounters a "pattern" in the file, it prints out the lines containing it
+
+
+# COMMANDS
+
+mkdir itb_globe                            # make directory named itb_globe
+cd itb_globe                               # move to itb_globe directory
+touch file1 file2 file3                    # make three empty files
+ls *                                       # list all files
+echo *                                     # shows all files
+echo ls *                                  # shows ls and all files
+echo ls '*'                                # shows ls and * (single quote)
+echo '$HOME'                               # shows $HOME
+echo "$HOME"                               # shows your home directory path
 ls "*"
-ls *1
-ls file[12]
-ls file[a-z]
-ls file[a-z][0-9]
-echo file?
+ls *1                                      # list all files that ends with 1
+ls file[12]                                # list all files that ends with 1, 2
+ls file[a-z]                               # list all files that neds with a-z
+ls file[a-z][0-9]                          # list all files that ends with [a-z][0-9]
+echo file?                                 # shows all files that ends with any single characters
 touch .adotfile
 mkdir .adotfolder
 touch .adotfolder/file1 .adotfolder/.adotfile
 ls
 ls *
-echo .*
-cd .
-echo text > afile
-grep text afile
+echo .*                                    # shows all dot files
+cd .                                       # remain in the same directory
+echo text > afile                          # redirect text to afile
+grep text afile                            # matching a pattern text in file afile and prints tot he console
 grep '*' afile
 grep '.*' afile
