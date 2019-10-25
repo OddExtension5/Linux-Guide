@@ -1,3 +1,9 @@
+# $ dereferences
+# Variables in double quotes are interpreted, single quotes not
+# Exported variables are passed to programs run within the shell
+# Env shows exported variables, compgen -v shows all variables
+
+
 MYVAR=value                                     # a variable MYVAR 
 echo $MYVAR                                     # print value of variable
 MYSTRING="A string"                             # a variable whose value is string of characters ( use double quote )
@@ -23,6 +29,7 @@ bash
 echo $MYVAR                                     # it shows MYVAR value
 exit
 env                                             # list the environment variable
+compgen -v                                      # shows all variables
 declare                                         # set variable values and attributes
 declare -f                                      # just functions 
 declare -F                                      # just function headers
