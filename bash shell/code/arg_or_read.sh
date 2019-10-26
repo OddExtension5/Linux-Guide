@@ -5,7 +5,7 @@
 if [ -z $1 ]
 then
             echo provide filenames
-            read $FILENAMES
+            read FILENAMES
 else
             FILENAMES="$@"
 fi
