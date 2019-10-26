@@ -156,3 +156,105 @@
 |       >               |   Output redirect                         |
 |       /               |   Pathname directory separator            |
 |       ?               |   Single character wildcard               |
+
+
+## Understanding Command Line Parsing
+
+  + When a command is interpreted by the shell, the shell interprets all special characters
+      + This process is known as ***command line parsing***
+  + Commands themselves may interpret parts of the command line as well
+  + To ensure that a special character is interpreted by the command and not by the shell, use quoting
+  
+## Quoting
+  
+  + Quoting is used to treat special characters literally
+  + If a string of characters is surrounded with single quotation marks, all characters are stripped of the special meaning they may have
+     + Imagine **echo 2*3 > 5**, whic would be interpreted
+     + Or imagine **find .-name '*.doc'** which ensures that **find** interprets *.doc and not the shell
+  + Double quotes are weak quotes and treat only some special characters as special
+  + A backslash can be used to escape the one following character
+  
+## Using Double Quotes
+
+  + Double quotes ignore pipe characters, aliases, tilde substitution, wildcard expression, and splitting into words using delimiters
+  + Double quotes do allow parameter substitution, command substitution, and arithmetic expression evaluation
+  + best practice: use single quotes, unless you specifically need parameter, command, or arithmetic substitution
+  
+## Handling Script Arguments
+   
+   + Any argument that was used when starting a script, can be dealt with from within the script
+   + Use $1, $2 and so on to refer to the first, the second, etc. argument
+   + **$0** refers to the name of the script itself
+   + Use **${nn}** or **shift** to refer to arguments beyond 9
+   + Arguments that are stored in $1 etc. are read only and cannot be changed from within the script
+   
+> Try : [simplearg](https://github.com/OddExtension5/Linux-Guide/blob/master/bash%20shell/code/simplearg.sh)
+
+Run Commands : 
+
+  + chmod + simplearg.sh
+  + ./simplearg sushil sneha
+  + ./simplearg sushil sneha debagni
+  + ./simplearg sushil sneha debagni aakansha
+   
+## Handling Argumets the Smart Way
+   
+   + The previous example works only if the amount of argumets is known on berforehand
+   + If this is not the case, use **for** to evaluate all possible arguments
+   + Use **$@** to refer to all arguments provided, where all arguments can be treated one by one
+   + Use **$#** to count the amount of argumets provided
+   + Use **$*** if you need a single string that contains all arguments (use in specific cases only)
+   
+> Try : [nicearg](https://github.com/OddExtension5/Linux-Guide/blob/master/bash%20shell/code/nicearg.sh)
+
+Run commands:
+    
+   + chmod +x nicearg
+   + ./nicearg a b c
+   
+Output:
+    
+  + $* gives a b c
+  + $# gives 3
+  + $@ gives a b c
+  + $0 is path/nicearg
+  + a b c
+  + a
+  + b
+  + c
+  
+Testing script: **bash -x filename**
+
+## Using Shift
+  
+  + Shift removes the first argument from a list so that the second argument gets stored in $1
+  + Shift is useful in older shell versions that do not understand ${10} etc.
+  
+> Try: [shift_arg.sh](https://github.com/OddExtension5/Linux-Guide/blob/master/bash%20shell/code/shift_arg.sh) <br>
+> Try: [shift_arg2.sh](https://github.com/OddExtension5/Linux-Guide/blob/master/bash%20shell/code/shift_arg2.sh)
+
+## Understanding Command Substitution
+
+  + Command susbtitution allows using the result of a command in a script
+  + Useful to provide ultimate flexibility
+  + Two allowd syntaxes:
+     + **`command`** (deprecated)
+     + **$(command)** (preferred)
+  + **ls -l $(which passwd)**
+  
+## Using String Verification
+  
+  + When working with arguments and input, it is useful to be able to verify availability and correct use of a string
+  + Use **test -z** to check if a string is empty
+    + **test -z $1 && exit 1**
+  + Use **[[...]]** to check for specific patterns
+    + **[[ $1=='[a-z]*' ]] || echo $1 does not start with a letter**
+   
+    
+# Using Here Documents
+  
+  + In a here document, I/O redirection is used to feed a command list into an interactive program or command, such as for instance **ftp** or **cat**
+  + Use it in scripts to replace echo for long texts that need to be displayed
+  + Use it if in a script a command is called that opens its own prompt, such as an FTP client interface
+  
+> Try: [heredoc1.sh](https://github.com/OddExtension5/Linux-Guide/blob/master/bash%20shell/code/heredoc1.sh)
