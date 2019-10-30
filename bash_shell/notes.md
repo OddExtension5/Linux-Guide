@@ -251,10 +251,78 @@ Testing script: **bash -x filename**
     + **[[ $1=='[a-z]*' ]] || echo $1 does not start with a letter**
    
     
-# Using Here Documents
+## Using Here Documents
   
   + In a here document, I/O redirection is used to feed a command list into an interactive program or command, such as for instance **ftp** or **cat**
   + Use it in scripts to replace echo for long texts that need to be displayed
   + Use it if in a script a command is called that opens its own prompt, such as an FTP client interface
   
 > Try: [heredoc1.sh](https://github.com/OddExtension5/Linux-Guide/blob/master/bash%20shell/code/heredoc1.sh)
+
+## Understanding Substitution Operators
+   
+   + A substitution operator (also known as string operator) allows you to manipulate values of variables in an easy way
+        + Ensure that variable exist
+        + Set default values for variables
+        + Catch errors that result from variables that don't exist
+        + Remove portions of variable values
+        
+## Substitution Operator Examples
+   
+   + **${VAR:-word}** : If $VAR exists, use its value, if not, return the value "word". This does NOT set the variable.
+   + **${VAR:=word}** : If $VAR exists, use its value, if not, set the default value to "word"
+   + **${VAR:?message}** : If $VAR exists, show its value. If not, display VAR followed by message. If message is omitted, the message VAR: parameter null or not set will be shown.
+   + **${VAR:offset:length}** : If $VAR exists, show the substring of $VAR, starting at offset with a legth of length
+   
+   For Examples : [click here](https://github.com/OddExtension5/Linux-Guide/blob/master/bash_shell/code/susbtitution_operator.sh)
+   
+## Why Use Pattern Matching Operators?
+    
+   + Pattern Matching is used to remove patterns from a variable
+   + It's an excellent way to clean up variables that have too much information
+       + For example, if $DATE contains 05-01-15 and you just need today's year
+       + Or if a file has the extension *.doc and you wnat to rename it to use the extension *.txt
+    
+ ## Pattern Matching Explained
+   
+   + **${VAR#pattern}** : Search for pattern from the beginning of variable's value, delete the shortest part that matches, and return the rest
+       + FILENAME=/usr/bin/blah <br>
+         echo ${FILENAME#*/}   <br>
+         usr/bin/blah  
+         
+   + **${VAR##pattern}** : Search for pattern from the beginning of variable's value, delete the longest part that matches, and return the rest
+       + FILENAME=/usr/bin/blah <br>
+         echo ${FILENAME##*/} <br>
+         blah
+         
+   + **${VAR%pattern}** : If pattern matches the end of the variable's value, delete the shortest part that matches, and return the rest
+       + FILENAME=/usr/bin/blah <br>
+         echo ${FILENAME%/*}    <br>
+         /usr/bin        
+         
+   + **${VAR%%pattern}** : If pattern matches the end of the variable's value, delete the longest part that matches, and return the rest
+       + FILENAME=/usr/bin/blah <br>
+         echo ${FILENAME%%/*} <br>
+         **empty**
+         
+   Example Script : [click here](https://github.com/OddExtension5/Linux-Guide/blob/master/bash_shell/code/pattern_matching.sh)
+    
+    
+## Understanding Regular Expressions
+   
+  + Regular expressions are search patterns that can be used by some utitlities (**grep** and other text processing utilities, **awk**, **sed**)
+  + Regular expressions are NOT the same as shell wildcards
+  + When using regular expressions, put them between strong quotes so that the shell won't interpret them
+  
+## Regular Expressions Overview
+   
+  |    Regular Expression                |                         Use                                                               |
+  |--------------------------------------|-------------------------------------------------------------------------------------------|
+  |       ^text                          |   Line starts with text                                                                   |
+  |       text$                          |   Line ends with text                                                                     |
+  |         .                            |   Wildcard (Matches any single character)                                                 |
+  |     [abc], [a-c]                     |   Matches a,b or c                                                                        |
+  |         *                            |   Matches 0 to an infinite number of the previous character                               |
+  |        \{2\}                         |   Matches exactly 2 of the previous character                                             |
+  |       \{1,3\}                        |   Match a minimum of 1 and a maximaum of 3 of the previous character                      |
+  |       colou?r                        |   Match 0 or 1 of the previous character (which makes the previous character optional)     |
