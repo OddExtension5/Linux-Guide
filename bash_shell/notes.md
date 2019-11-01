@@ -341,7 +341,7 @@ Testing script: **bash -x filename**
        echo $x
    + External calculation with **bc**
    
- ## Using bc
+## Using bc
    
    + **bc** is developed as a calculator with its iwn shell interface
    + It can deal with more than just integers
@@ -349,4 +349,90 @@ Testing script: **bash -x filename**
        + echo "scale=9; 10/3"| bc
    + Or in a variable:
        + VAR=$(echo "scale=9; 10/3" | bc)
+       
+## Using grep
+
+   + **grep** is a very flexible tool to search for text patterns based on regular expressions
+   
+        + **grep -i**: case insensitive
+            + **grep -i what * **
+        + **grep -v**: exclude lines that match the pattern
+            + **grep -v what * **
+        + **grep -r**: recursive
+            + **grep -r what * **
+        + **grep -e (egrep)**: matches more regular expressions
+            + **grep -e 'what' -e 'else' *
+        + **grep -A5**: shows 5 lines after the matching regex
+        + **grep -B4**: shows 4 lines before the matching regex
+        
+ ## Using test
+     
+   + **test** allows for testing of many items
+       + expression: **test (ls /etc/hosts )**
+       + string: **test -z $1**
+       + integers: **test $1 = 6**
+       + file comparisons: **test file1 -nt file2**
+       + file properties: **test -x file1**
+       
+       
+ ## Three Ways to test
     
+   + **test -z $1**: old method, using an internal bash command
+   + **[ -z $1 ]**: equivalent to test, using bash internal
+   + **[[ -z $1 ]]**: new improved version of [...]. Not as universal as [...]; it has && and || built in
+   + Best practice: If it doesn't work using [...], try using [[...]]
+   + If compatibility with older shells doesn't matter, use [[...]]
+   + Compare the following:
+       + **[ $BLAH = a* ]] || echo string does not start with a**
+       + **[[ $BLAH = a* ]] || echo string does not start with a**
+
+## Using cut and sort
+   
+   
+   + **cut** is used to filter a specific column or field out of a line
+   + **sort** is used to sort data in a specific order
+   + **cut** and **sort** are often seen together
+   
+## cut and sort Examples
+   
+   + **cut -f 1 -d : /etc/passwd**
+   + **sort /etc/passwd**
+   + **cut -f 2 -d : /etc/passwd | sort -n**
+   + **du -h | sort -rn**
+   + **sort -n -k2 -t : /etc/passwd**
+   
+## Using tail and head
+   
+   + **tail** is used to display the last line(s) of a file
+   + **head** is used to display the first line(s) of a file
+   + **tail -2 /etc/passwd**
+   + **head -2 /etc/passwd**
+   + **head -5 /etc/passwd | tail -1**
+   
+## Using sed
+    
+   + **sed** is more than a text processing utility, it's programming language with many features
+   + A limited set of these are useful in scripts
+   + **sed -n 5p /etc/passwd**
+   + **sed -i s/old-text/new-text/g ~/myfile**
+   + **sed -i -e '2d' ~/myfile**
+   + **sed -i -e '2d;20,25d' ~/myfile**
+   
+## Using awk
+   
+   + Like **sed**, **awk** is a very rich language
+   + In scripts you'll appreciate it as an alternative to **cut** to filter information from text files based on regular expression-based patterns
+   + The basic usage is **awk '/search pattern/ {Actions}' file**
+   + **awk -F : '{ print $4 }' /etc/passwd**
+   + **awk -F : '/user/ { print $4 }' /etc/passwd**
+   + **awk -F : '{ print $1,$NF }' /etc/passwd** ($NF is the last field)
+   + **awk -F : '$3 > 500' /etc/passwd**
+   + **awk -F : '$NF ~/bash/' /etc/passwd**
+   
+## Using tr
+    
+   + **tr** helps in transofrming strings
+   + **echo hello | tr [a-z] [A-Z]**
+   + **echo hello | tr [:lower:] [:upper:]**
+   
+   
