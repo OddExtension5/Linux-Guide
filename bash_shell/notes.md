@@ -326,3 +326,27 @@ Testing script: **bash -x filename**
   |        \{2\}                         |   Matches exactly 2 of the previous character                                             |
   |       \{1,3\}                        |   Match a minimum of 1 and a maximaum of 3 of the previous character                      |
   |       colou?r                        |   Match 0 or 1 of the previous character (which makes the previous character optional)     |
+
+## Bash Calculating
+   
+   + Bash offers different ways to calculate in a script
+   + Internal calculation: **$(( 1 + 1 ))**
+   + External calculation with **let**:
+       
+       #!/bin/bash <br>
+       #$1 is the first number <br>
+       #$2 is the operator  <br>
+       #$3 is the second number <br>
+       let x="$1 $2 $3" <br>
+       echo $x
+   + External calculation with **bc**
+   
+ ## Using bc
+   
+   + **bc** is developed as a calculator with its iwn shell interface
+   + It can deal with more than just integers
+   + Use **bc** is non-intercative mode:
+       + echo "scale=9; 10/3"| bc
+   + Or in a variable:
+       + VAR=$(echo "scale=9; 10/3" | bc)
+    
